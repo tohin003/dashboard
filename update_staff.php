@@ -21,39 +21,26 @@
 
 
 
-if(isset($_POST['submit'])){
-  
-  
-    $name=$_POST['name'];
-    $quantity=$_POST['quantity'];
-    $price=$_POST['price'];
-    $discount=$_POST['discount'];
-    $final=$_POST['final price'];
+if($_GET['submit']){
+  $id=$_GET['id'];
+  $name=$_GET['name'];
+  $email=$_GET['email'];
+  $phno=$_GET['phno'];
+  $desg=$_GET['desg'];
+  $query="UPDATE `contact` SET `name`='$name',`email`='$email',`phno`='$phno',`designation`='$desg' WHERE `id`='$id' ";
+  $data=mysqli_query($conn, $query);
 
-   
-   
-    
-    
-
-    // if($name!="" && $email!="" && $phno!="" && $desg!="")
-    // {
-        $query="INSERT INTO `products`(`name`, `quantity`, `price`, `discount`, `final price`) VALUES ('$name','$quantity','$price','$discount','$final')";
-        $data= mysqli_query($conn, $query);
-        
-
-        
-
-        if($data)
-            {   
-                echo "uploaded successfully";
-            }
-    
-    
-        else{
-            echo "all fields are required";
-            }
-    // }   
+  if($data){
+      echo "Record Updated";
+  }
+  else{
+      echo "Record not Updated";
+  }
 }
+else{
+  echo "click on the update button to save the changes";
+}
+
 
 
 ?>
@@ -179,10 +166,10 @@ if(isset($_POST['submit'])){
               <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item">
-                    <a class="nav-link" href="product_elements.php">Add Product</a>
+                    <a class="nav-link" href="../forms/product_elements.php">Add Product</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="../tables/product-table.php">Manage Product</a>
+                    <a class="nav-link" href="product-table.php">Manage Product</a>
                   </li>
                   
                 </ul>
@@ -197,10 +184,10 @@ if(isset($_POST['submit'])){
               <div class="collapse" id="ui-basic2">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item">
-                    <a class="nav-link" href="basic_elements.php">Add Staff</a>
+                    <a class="nav-link" href="../forms/basic_elements.php">Add Staff</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="../tables/staff-table.php">Manage Staff</a>
+                    <a class="nav-link" href="staff-table.php">Manage Staff</a>
                   </li>
                   
                 </ul>
@@ -267,7 +254,7 @@ if(isset($_POST['submit'])){
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="page-header">
-              <h3 class="page-title"> Add Product </h3>
+              <h3 class="page-title"> Add Staff </h3>
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="#">Forms</a></li>
@@ -279,31 +266,27 @@ if(isset($_POST['submit'])){
               <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Add product</h4>
+                    <h4 class="card-title">Add Staff</h4>
                     <p class="card-description"> Details </p>
-                    <form class="forms-sample" method="POST">
+                    <form class="forms-sample" method="GET">
                       <div class="form-group">
                         <label for="exampleInputUsername1">Name</label>
-                        <input type="text" class="form-control" name="name" id="exampleInputUsername1" placeholder="Name">
+                        <input type="text" class="form-control" id="exampleInputUsername1" name="name" value="<?php echo $_GET['name'];?>"/>
                       </div>
                       <div class="form-group">
-                        <label for="exampleInputEmail1">Quantity</label>
-                        <input type="text" class="form-control" name="quantity" id="exampleInputPassword" placeholder="Quantity">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" name="email" value="<?php echo $_GET['email']; ?>"/>
                       </div>
                       <div class="form-group">
-                        <label for="exampleInputPassword1">Price</label>
-                        <input type="text" class="form-control" name="price" id="exampleInputPassword1" placeholder="Price">
+                        <label for="exampleInputPassword1">Phone Number</label>
+                        <input type="text" class="form-control" id="exampleInputPassword1" name="phno" value="<?php echo $_GET['phno']; ?>"/>
                       </div>
                       <div class="form-group">
-                        <label for="exampleInputConfirmPassword1">Discount</label>
-                        <input type="text" class="form-control" name="discount" id="exampleInputConfirmPassword1" placeholder="Discount">
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputConfirmPassword1">Final Price</label>
-                        <input type="text" class="form-control" name="final price" id="exampleInputConfirmPassword1" placeholder="Final Price">
+                        <label for="exampleInputConfirmPassword1">Designation</label>
+                        <input type="text" class="form-control" id="exampleInputConfirmPassword1" name="desg" value="<?php echo $_GET['desg']; ?>"/>
                       </div>
                       
-                      <button type="submit" name="submit" class="btn btn-gradient-primary me-2">Submit</button>
+                      <button type="submit" class="btn btn-gradient-primary me-2" name="submit">Submit</button>
                       <button class="btn btn-light">Cancel</button>
                     </form>
                   </div>
@@ -344,5 +327,10 @@ if(isset($_POST['submit'])){
     <script src="../../assets/js/typeahead.js"></script>
     <script src="../../assets/js/select2.js"></script>
     <!-- End custom js for this page -->
+
+
+   
+
+    
   </body>
 </html>
