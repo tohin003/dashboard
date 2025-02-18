@@ -245,10 +245,10 @@ if(isset($_POST['submit'])){
                     <a class="nav-link" href="pages/samples/blank-page.html"> Blank Page </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="pages/samples/login.html"> Login </a>
+                    <a class="nav-link" href="../samples/login.php"> Login </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="pages/samples/register.html"> Register </a>
+                    <a class="nav-link" href="../samples/register.php"> Register </a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="pages/samples/error-404.html"> 404 </a>

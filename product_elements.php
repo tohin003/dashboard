@@ -9,7 +9,7 @@
  
  if($conn)
  {
-     echo "";
+     echo "connected";
  }
  else{
      echo "not connected";
@@ -28,7 +28,7 @@ if(isset($_POST['submit'])){
     $quantity=$_POST['quantity'];
     $price=$_POST['price'];
     $discount=$_POST['discount'];
-    $final=$_POST['final price'];
+    $final=$_POST['final_price'];
 
    
    
@@ -56,7 +56,7 @@ if(isset($_POST['submit'])){
 }
 
 
-?>
+?> 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -246,10 +246,10 @@ if(isset($_POST['submit'])){
                     <a class="nav-link" href="pages/samples/blank-page.html"> Blank Page </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="pages/samples/login.html"> Login </a>
+                    <a class="nav-link" href="../samples/login.php"> Login </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="pages/samples/register.html"> Register </a>
+                    <a class="nav-link" href="../samples/register.php"> Register </a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="pages/samples/error-404.html"> 404 </a>
@@ -281,31 +281,57 @@ if(isset($_POST['submit'])){
                   <div class="card-body">
                     <h4 class="card-title">Add product</h4>
                     <p class="card-description"> Details </p>
-                    <form class="forms-sample" method="POST">
+                    <!-- <form class="forms-sample" method="POST">
                       <div class="form-group">
                         <label for="exampleInputUsername1">Name</label>
                         <input type="text" class="form-control" name="name" id="exampleInputUsername1" placeholder="Name">
                       </div>
                       <div class="form-group">
                         <label for="exampleInputEmail1">Quantity</label>
-                        <input type="text" class="form-control" name="quantity" id="exampleInputPassword" placeholder="Quantity">
+                        <input type="number" class="form-control" id="quantity" name="quantity"  placeholder="Quantity" min="1" max="100" step="1" required>
                       </div>
                       <div class="form-group">
                         <label for="exampleInputPassword1">Price</label>
-                        <input type="text" class="form-control" name="price" id="exampleInputPassword1" placeholder="Price">
+                        <input type="number" class="form-control" id="quantity" name="price"  placeholder="Price" min="1" max="100" step="1" required>
                       </div>
                       <div class="form-group">
                         <label for="exampleInputConfirmPassword1">Discount</label>
-                        <input type="text" class="form-control" name="discount" id="exampleInputConfirmPassword1" placeholder="Discount">
+                        <input type="number" class="form-control" id="quantity" name="discount"  placeholder="Discount" min="1" max="100" step="1" required>
                       </div>
                       <div class="form-group">
                         <label for="exampleInputConfirmPassword1">Final Price</label>
-                        <input type="text" class="form-control" name="final price" id="exampleInputConfirmPassword1" placeholder="Final Price">
+                        <input type="number" class="form-control" id="quantity" name="final price"  placeholder="Final Price" min="1" max="100" step="1" required>
                       </div>
                       
                       <button type="submit" name="submit" class="btn btn-gradient-primary me-2">Submit</button>
                       <button class="btn btn-light">Cancel</button>
-                    </form>
+                    </form> -->
+                    <body>
+    <form class="forms-sample" method="POST" >
+        <div class="form-group">
+            <label for="exampleInputUsername1">Name</label>
+        </div>
+        <div class="form-group">
+                <input type="text" class="form-control" name="name" id="exampleInputUsername1" placeholder="Name">
+        <label for="exampleInputEmail1">Quantity</label>
+            <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Quantity" min="1" max="100000" step="1" required>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Price</label>
+            <input type="number" class="form-control" id="price" name="price" placeholder="Price" min="1" max="100000" step="1" required>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputDiscount">Discount</label>
+            <input type="number" class="form-control" id="discount" name="discount" placeholder="Discount" min="1" max="100" step="1" required>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputFinalPrice">Final Price</label>
+            <input type="number" class="form-control" id="finalPrice" name="final_price" placeholder="Final Price" min="1" max="1000000" step="1" required>
+        </div>
+        <button type="submit" name="submit" class="btn btn-gradient-primary me-2">Submit</button>
+        <button type="button" class="btn btn-light">Cancel</button>
+    </form>
+</body>
                   </div>
                 </div>
               </div>
