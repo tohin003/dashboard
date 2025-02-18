@@ -1,44 +1,62 @@
 <?php
-
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "tohinphp";
-
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-
-if ($conn) {
-    echo ""; // No message needed here
-} else {
-    echo "not connected";
-}
-
-
-
-if (isset($_POST['submit'])) {
-    $id = $_POST['id'];
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $phno = $_POST['phno'];
-    $desg = $_POST['desg'];
-
-    $query = "UPDATE `contact` SET `name`='$name',`email`='$email',`phno`='$phno',`designation`='$desg' WHERE `id`='$id' ";
-    $data = mysqli_query($conn, $query);
-
-    if ($data) {
-        echo "Record Updated Successfully!";  // Success message with "Successfully"
-    } else {
-        echo "Record Update Failed.";  // Error message with "Failed"
-    }
-} else {
-    echo "Click on the update button to save the changes";
-}
-
-
-
+ 
+ $servername="localhost";
+ $username="root";
+ $password="";
+ $dbname="tohinphp";
+ 
+ $conn = mysqli_connect($servername,$username,$password,$dbname);
+ 
+ if($conn)
+ {
+     echo "connected";
+ }
+ else{
+     echo "not connected";
+ }
+ 
+ 
 ?>
+ <?php
 
+
+
+if(isset($_GET['submit'])){
+  
+  
+    $name=$_GET['name'];
+    $quantity=$_GET['quantity'];
+    $price=$_GET['price'];
+    $discount=$_GET['discount'];
+    $final=$_GET['final_price'];
+
+   
+   
+    
+    
+
+    // if($name!="" && $email!="" && $phno!="" && $desg!="")
+    // {
+        $query="INSERT INTO `products`(`name`, `quantity`, `price`, `discount`, `final price`) VALUES ('$name','$quantity','$price','$discount','$final')";
+        $data= mysqli_query($conn, $query);
+        
+
+        
+
+        if($data)
+            {   
+                echo "uploaded successfully";
+            }
+    
+    
+        else{
+            echo "all fields are required";
+            }
+    // }   
+}
+
+
+?> 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -161,10 +179,10 @@ if (isset($_POST['submit'])) {
               <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item">
-                    <a class="nav-link" href="../forms/product_elements.php">Add Product</a>
+                    <a class="nav-link" href="product_elements.php">Add Product</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="product-table.php">Manage Product</a>
+                    <a class="nav-link" href="../tables/product-table.php">Manage Product</a>
                   </li>
                   
                 </ul>
@@ -179,10 +197,10 @@ if (isset($_POST['submit'])) {
               <div class="collapse" id="ui-basic2">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item">
-                    <a class="nav-link" href="../forms/basic_elements.php">Add Staff</a>
+                    <a class="nav-link" href="basic_elements.php">Add Staff</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="staff-table.php">Manage Staff</a>
+                    <a class="nav-link" href="../tables/staff-table.php">Manage Staff</a>
                   </li>
                   
                 </ul>
@@ -225,7 +243,7 @@ if (isset($_POST['submit'])) {
               <div class="collapse" id="auth">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item">
-                    <a class="nav-link" href="../samples/blank-page.html"> Blank Page </a>
+                    <a class="nav-link" href="pages/samples/blank-page.html"> Blank Page </a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="../samples/login.php"> Login </a>
@@ -249,7 +267,7 @@ if (isset($_POST['submit'])) {
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="page-header">
-              <h3 class="page-title"> Add Staff </h3>
+              <h3 class="page-title"> Add Product </h3>
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="#">Forms</a></li>
@@ -261,39 +279,59 @@ if (isset($_POST['submit'])) {
               <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Add Staff</h4>
+                    <h4 class="card-title">Add product</h4>
                     <p class="card-description"> Details </p>
-                    <?php
-                      include '../../config.php';
-
-                      $staff_id = $_GET['id'];
-                      $result = $conn->query("SELECT * FROM products WHERE id = $staff_id");
-                      $staff = $result->fetch_assoc();
-                      ?>
-
-                    
-                    <form class="forms-sample" method="POST">
+                    <!-- <form class="forms-sample" method="POST">
                       <div class="form-group">
-                      <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
                         <label for="exampleInputUsername1">Name</label>
-                        <input type="text" class="form-control" id="exampleInputUsername1" name="name" value="<?php echo $_GET['name'];?>"/>
+                        <input type="text" class="form-control" name="name" id="exampleInputUsername1" placeholder="Name">
                       </div>
                       <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" name="email" value="<?php echo $_GET['email']; ?>"/>
+                        <label for="exampleInputEmail1">Quantity</label>
+                        <input type="number" class="form-control" id="quantity" name="quantity"  placeholder="Quantity" min="1" max="100" step="1" required>
                       </div>
                       <div class="form-group">
-                        <label for="exampleInputPassword1">Phone Number</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1" name="phno" value="<?php echo $_GET['phno']; ?>"/>
+                        <label for="exampleInputPassword1">Price</label>
+                        <input type="number" class="form-control" id="quantity" name="price"  placeholder="Price" min="1" max="100" step="1" required>
                       </div>
                       <div class="form-group">
-                        <label for="exampleInputConfirmPassword1">Designation</label>
-                        <input type="text" class="form-control" id="exampleInputConfirmPassword1" name="desg" value="<?php echo $_GET['desg']; ?>"/>
+                        <label for="exampleInputConfirmPassword1">Discount</label>
+                        <input type="number" class="form-control" id="quantity" name="discount"  placeholder="Discount" min="1" max="100" step="1" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputConfirmPassword1">Final Price</label>
+                        <input type="number" class="form-control" id="quantity" name="final price"  placeholder="Final Price" min="1" max="100" step="1" required>
                       </div>
                       
-                      <button type="submit" class="btn btn-gradient-primary me-2" name="submit">Submit</button>
+                      <button type="submit" name="submit" class="btn btn-gradient-primary me-2">Submit</button>
                       <button class="btn btn-light">Cancel</button>
-                    </form>
+                    </form> -->
+                    <body>
+    <form class="forms-sample" method="POST" >
+        <div class="form-group">
+            <label for="exampleInputUsername1">Name</label>
+            <input type="text" class="form-control" name="name" id="exampleInputUsername1" value="<?php echo $_GET['name'];?>">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Quantity</label>
+            <input type="number" class="form-control" id="quantity" name="quantity" value="<?php echo $_GET['quantity'];?>" min="1" max="100" step="1" required>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Price</label>
+            <input type="number" class="form-control" id="price" name="price" value="<?php echo $_GET['price'];?>" min="1" max="100" step="1" required>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputDiscount">Discount</label>
+            <input type="number" class="form-control" id="discount" name="discount" value="<?php echo $_GET['discount'];?>" min="1" max="100" step="1" required>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputFinalPrice">Final Price</label>
+            <input type="number" class="form-control" id="finalPrice" name="final_price" value="<?php echo $_GET['final_price'];?>" max="100" step="1" required>
+        </div>
+        <button type="submit" name="submit" class="btn btn-gradient-primary me-2">Submit</button>
+        <button type="button" class="btn btn-light">Cancel</button>
+    </form>
+</body>
                   </div>
                 </div>
               </div>
@@ -332,10 +370,5 @@ if (isset($_POST['submit'])) {
     <script src="../../assets/js/typeahead.js"></script>
     <script src="../../assets/js/select2.js"></script>
     <!-- End custom js for this page -->
-
-
-   
-
-    
   </body>
 </html>

@@ -1,3 +1,42 @@
+<?php
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "tohinphp";
+
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+if ($conn) {
+    echo "connected"; 
+} else {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+if (isset($_GET['submit'])) {
+    $id = $_GET['id'];
+    echo "ID to delete: $id"; 
+
+    $query = "DELETE FROM `contact` WHERE `id`='$id'";
+    echo "Query: $query"; 
+
+    $data = mysqli_query($conn, $query);
+
+    if ($data) {
+        echo "Record deleted Successfully!";  
+        ?>
+        <meta http-equiv="refresh" content="0; url=http://localhost/purple/dist/pages/tables/staff-table.php">
+        <?php
+    } else {
+        echo "Record deletion Failed.";  
+        echo "Error: " . mysqli_error($conn); // Show MySQL error
+    }
+} else {
+    echo "Click on the delete button to save the changes";
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -262,8 +301,8 @@
                                     <td>".$result['email']."</td>
                                     <td>".$result['phno']."</td>
                                     <td>".$result['designation']."</td>
-                                    <td><a class='btn btn-gradient-primary me-2' href='update_staff.php?id=$result[id]&name=$result[name]&email=$result[email]&phno=$result[phno]&desg=$result[designation]'>Edit</a> </td>
-                                    <td><a class='btn btn-gradient-primary me-2' href='delete_staff.php?id=$result[id]&submit=true'>Delete</a></td>
+                                    <td><a href='update_staff.php?id=$result[id]&name=$result[name]&email=$result[email]&phno=$result[phno]&desg=$result[designation]'>Edit</a> </td>
+                                    <td><a href='delete_staff.php?id=$result[id]&submit=true'>Delete</a></td>
 
                                  </tr> "."<br/>";
                         }

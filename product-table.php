@@ -184,10 +184,10 @@
                     <a class="nav-link" href="pages/samples/blank-page.html"> Blank Page </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="pages/samples/login.html"> Login </a>
+                    <a class="nav-link" href="../samples/login.php"> Login </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="pages/samples/register.html"> Register </a>
+                    <a class="nav-link" href="../samples/register.php"> Register </a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="pages/samples/error-404.html"> 404 </a>
@@ -220,6 +220,30 @@
                     <h4 class="card-title">Product Table</h4>
                     <p class="card-description"> Add class <code>.table</code>
                     </p>
+                    <?php
+                      $servername="localhost";
+                      $username="root";
+                      $password="";
+                      $dbname="tohinphp";
+                      
+                      $conn = mysqli_connect($servername,$username,$password,$dbname);
+                      
+                      if($conn)
+                      {
+                          echo "";
+                      }
+                      else{
+                          echo "not connected";
+                      }
+                      
+
+                      $query="SELECT * FROM `products`";
+                      $data= mysqli_query($conn,$query);
+                      $total=mysqli_num_rows($data);
+
+                      if($total !=0){
+                          
+                      ?>
                     <table class="table">
                       <thead>
                         <tr>
@@ -232,51 +256,22 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Jacob</td>
-                          <td>53275531</td>
-                          <td>12 May 2017</td>
-                          <td><label class="badge badge-danger">Pending</label></td>
-                          <td>20 May 2017</td>
-                          <td><a href="">edit</a></td>
-                          <td><a href="">delete</a></td> 
-                        </tr>
-                        <tr>
-                          <td>Messsy</td>
-                          <td>53275532</td>
-                          <td>15 May 2017</td>
-                          <td><label class="badge badge-warning">In progress</label></td>
-                          <td>20 May 2017</td>
-                          <td><a href="">edit</a></td>
-                          <td><a href="">delete</a></td> 
-                        </tr>
-                        <tr>
-                          <td>John</td>
-                          <td>53275533</td>
-                          <td>14 May 2017</td>
-                          <td><label class="badge badge-info">Fixed</label></td>
-                          <td>20 May 2017</td>
-                          <td><a href="">edit</a></td>
-                          <td><a href="">delete</a></td> 
-                        </tr>
-                        <tr>
-                          <td>Peter</td>
-                          <td>53275534</td>
-                          <td>16 May 2017</td>
-                          <td><label class="badge badge-success">Completed</label></td>
-                          <td>20 May 2017</td>
-                          <td><a href="">edit</a></td>
-                          <td><a href="">delete</a></td> 
-                        </tr>
-                        <tr>
-                          <td>Dave</td>
-                          <td>53275535</td>
-                          <td>20 May 2017</td>
-                          <td><label class="badge badge-warning">In progress</label></td>
-                          <td>20 May 2017</td>
-                          <td><a href="">edit</a></td>
-                          <td><a href="">delete</a></td> 
-                        </tr>
+                      <?php
+                          while($result=mysqli_fetch_assoc($data)){
+                            echo "<tr>
+                                    <td>".$result['name']."</td>
+                                    <td>".$result['quantity']."</td>
+                                    <td>".$result['price']."</td>
+                                    <td>".$result['discount']."</td>
+                                    <td>".$result['final price']."</td>
+                                    <td><a class='btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn' href='update_product.php?id=$result[id]&name=$result[name]&quantity=$result[quantity]&price=$result[price]&discount=$result[discount]&final_price=$result[final_price]'>Edit</a> </td>
+                                    <td><a class='btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn' href='delete_product.php?id=$result[id]&submit=true'>Delete</a></td>
+
+                                 </tr> "."<br/>";
+                        }
+                      }
+
+                        ?>
                       </tbody>
                     </table>
                   </div>
